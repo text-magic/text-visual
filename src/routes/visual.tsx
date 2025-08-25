@@ -1,10 +1,13 @@
-import "./App.css";
-
 import { useEffect, useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 
-import type { NLPTaskResult } from "../apiTypes";
+import type { NLPTaskResult } from "../../apiTypes";
 
-function App() {
+export const Route = createFileRoute("/visual")({
+  component: RouteComponent,
+});
+
+function RouteComponent() {
   const [text, setText] = useState("");
 
   const [NLPResult, setNLPResult] = useState<NLPTaskResult>({});
@@ -59,5 +62,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
