@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import type { NLPTaskResult } from "../../apiTypes";
+import type { NLPTaskResult } from "../apiTypes";
 
 export const Route = createFileRoute("/visual")({
   component: RouteComponent,
