@@ -13,9 +13,14 @@ dependencies = [
 dev = [
     "mypy>=1.17.1",
     "pip>=25.2",
+    "poethepoet>=0.37.0",
     "pydantic-to-typescript>=2.0.0",
     "ruff>=0.12.9",
 ]
+
+[tool.poe.tasks]
+test = "echo 'test'"
+gen = "pydantic2ts --module main.py --json2ts-cmd ./node_modules/.bin/json2ts --output ./src/apiTypes.ts"
 
 [tool.ruff]
 line-length = 120
