@@ -11,7 +11,9 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "mypy>=1.17.1",
     "pip>=25.2",
+    "pydantic-to-typescript>=2.0.0",
     "ruff>=0.12.9",
 ]
 
@@ -19,8 +21,8 @@ dev = [
 line-length = 120
 indent-width = 4
 
-# Assume Python 3.10
-target-version = "py310"
+# Assume Python 3.12
+target-version = "py312"
 
 [tool.ruff.lint]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`) codes by default.
