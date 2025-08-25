@@ -2,32 +2,60 @@ import "./App.css";
 
 import { useEffect, useState } from "react";
 
+import type { NLPTaskResult } from "../apiTypes";
+
 function App() {
   const [text, setText] = useState("");
 
-  const [result, setResult] = useState({});
+  const [NLPResult, setNLPResult] = useState<NLPTaskResult>({});
 
   useEffect(() => {
     if (!text) return;
-    fetch("http://localhost:8000/tok?text=" + text)
+    fetch("http://localhost:8000/hanlp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text, tasks: ["pos/pku"] }),
+    })
       .then((response) => response.json())
-      .then((data) => setResult(data));
+      .then((data) => {
+        setNLPResult(data);
+        console.log(data); // log the actual result
+      });
   }, [text]);
 
   return (
-    <div>
-      <h1>Text Visual</h1>
+    <div className="max-w-4xl mx-auto m-6">
+      <h1 className="text-3xl font-bold text-center">Text Visual</h1>
+
+      <div>Tasks: tok</div>
       <textarea
         name="text"
         id=""
         rows={10}
-        cols={50}
+        cols={100}
         value={text}
-        style={{ width: "100%", height: "100%" }}
+        className="w-full h-full border"
         onChange={(e) => setText(e.target.value)}
       ></textarea>
 
-      <div>{result?.tok?.map((item: any) => item.word).join(" ")}</div>
+      <div className="flex flex-wrap">
+        {NLPResult?.["tok/fine"]?.map((w: string, i: number) => (
+          <div
+            key={i}
+            className="m-1 p-1 border rounded border-gray-300 text-center"
+          >
+            <div className="word border-b">{w}</div>
+            <div className="pos">{NLPResult?.["pos/pku"]?.[i]}</div>
+          </div>
+        ))}
+      </div>
+
+      <details>
+        <summary>HanLP Debug Info</summary>
+        <pre>{JSON.stringify(NLPResult, null, 2)}</pre>
+      </details>
     </div>
   );
 }
