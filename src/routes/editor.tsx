@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import EditorComponent from "../components/editor";
 
 export const Route = createFileRoute("/editor")({
   component: Editor,
@@ -11,6 +12,8 @@ function Editor() {
 
   return (
     <div className="max-w-4xl mx-auto m-6">
+      <EditorComponent />
+      <hr className="my-4" />
       <div
         className="editor border p-2"
         contentEditable
