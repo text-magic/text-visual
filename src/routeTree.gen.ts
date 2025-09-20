@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VisualRouteImport } from './routes/visual'
+import { Route as EditorRouteImport } from './routes/editor'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VisualRoute = VisualRouteImport.update({
   id: '/visual',
   path: '/visual',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EditorRoute = EditorRouteImport.update({
+  id: '/editor',
+  path: '/editor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/editor': typeof EditorRoute
   '/visual': typeof VisualRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/editor': typeof EditorRoute
   '/visual': typeof VisualRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/editor': typeof EditorRoute
   '/visual': typeof VisualRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/visual'
+  fullPaths: '/' | '/about' | '/editor' | '/visual'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/visual'
-  id: '__root__' | '/' | '/about' | '/visual'
+  to: '/' | '/about' | '/editor' | '/visual'
+  id: '__root__' | '/' | '/about' | '/editor' | '/visual'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  EditorRoute: typeof EditorRoute
   VisualRoute: typeof VisualRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/visual'
       fullPath: '/visual'
       preLoaderRoute: typeof VisualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/editor': {
+      id: '/editor'
+      path: '/editor'
+      fullPath: '/editor'
+      preLoaderRoute: typeof EditorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  EditorRoute: EditorRoute,
   VisualRoute: VisualRoute,
 }
 export const routeTree = rootRouteImport

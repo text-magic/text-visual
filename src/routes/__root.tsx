@@ -15,6 +15,9 @@ function RootComponent() {
         <Link to="/visual" className="[&.active]:font-bold">
           Visual
         </Link>
+        <Link to="/editor" className="[&.active]:font-bold">
+          Editor
+        </Link>
         <Link to="/about" className="[&.active]:font-bold">
           About
         </Link>
